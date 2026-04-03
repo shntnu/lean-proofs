@@ -46,4 +46,4 @@ Follow the claim's decomposition — don't invent auxiliary lemmas beyond what t
 
 ## Claims
 
-See the claims table in [`README.md`](README.md#claims) — that is the single source of truth for claim status.
+Claims live in `claims/` with proofs in `LeanProofs/`. No separate tracking table — the filesystem is the source of truth.

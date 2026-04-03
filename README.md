@@ -25,10 +25,7 @@ Requires [Nix](https://nixos.org/) with flakes enabled, or install [elan](https:
 
 ## Claims
 
-| Claim | Description | Lean | Status |
-|-------|-------------|------|--------|
-| [Harmony per-feature](claims/harmony_per_feature.md) | Harmony batch correction corrects each feature independently — no cross-feature mixing ([Korsunsky et al. 2019](https://doi.org/10.1038/s41592-019-0619-0)) | [`HarmonyPerFeature.lean`](LeanProofs/HarmonyPerFeature.lean) | proved |
-| [SVD–PCA equivalence](claims/svd_pca_equivalence.md) | Right singular vectors V diagonalize XᵀX given X = USVᵀ — the algebraic core of why PCA can be computed via SVD | [`SvdPcaEquivalence.lean`](LeanProofs/SvdPcaEquivalence.lean) | proved |
+Claims live in `claims/` (markdown) with corresponding proofs in `LeanProofs/` (one `.lean` file per claim). Browse those directories for the current list.
 
 ## Repository structure
 
