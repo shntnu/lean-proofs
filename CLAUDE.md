@@ -23,6 +23,10 @@ LeanProofs.lean               # Root — imports all modules
 
 ## Adding a New Claim
 
+Claims can originate from notebooks, papers, or informal notes. For notebooks:
+download the `.ipynb`, read markdown/code cells to extract mathematical claims,
+then follow the steps below.
+
 1. Write `claims/your_claim.md` — the mathematical statement in plain language
 2. Use `/lean4:draft` to generate `LeanProofs/YourClaim.lean` (skeleton with `sorry`)
 3. Add `import LeanProofs.YourClaim` to `LeanProofs.lean`
@@ -33,6 +37,11 @@ LeanProofs.lean               # Root — imports all modules
 Use the `/lean4` skill suite for all proof work.
 
 ## Domain Patterns
+
+### Tactic gotchas
+
+- `simp_rw [Finset.sum_comm]` loops (self-inverse rewrite). Use `calc` with explicit `Finset.sum_comm` steps instead.
+- `Equiv.sum_comp σ (f · ^ 2)` — reindex a sum by a permutation; see `SumFourSquares.lean` for the pattern
 
 Claims in this repo come from morphological profiling and single-cell genomics. Common Lean type mappings:
 
