@@ -1,0 +1,12 @@
+{
+  "eval_id": 0,
+  "eval_name": "number-theory-induction",
+  "prompt": "Prove the three sorry exercises in Section_4_4.lean: Nat.no_infinite_descent, Nat.even_or_odd'', and Nat.not_even_and_odd",
+  "assertions": [
+    {"name": "no_infinite_descent_proved", "check": "The sorry for Nat.no_infinite_descent is replaced with a valid tactic proof"},
+    {"name": "even_or_odd_proved", "check": "The sorry for Nat.even_or_odd'' is replaced with a valid tactic proof"},
+    {"name": "not_even_and_odd_proved", "check": "The sorry for Nat.not_even_and_odd is replaced with a valid tactic proof"},
+    {"name": "builds_without_errors", "check": "build_log.txt shows zero errors (sorry warnings for OTHER exercises are OK)"},
+    {"name": "proofs_concise", "check": "Each proof body is at most 10 tactic lines"}
+  ]
+}

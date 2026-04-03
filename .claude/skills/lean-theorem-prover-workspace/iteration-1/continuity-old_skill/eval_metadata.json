@@ -1,0 +1,14 @@
+{
+  "eval_id": 1,
+  "eval_name": "continuity-mathlib-api",
+  "prompt": "Prove the five continuity sorry exercises on lines 33-42 of Section_9_4.lean",
+  "assertions": [
+    {"name": "const_continuousWithinAt_proved", "check": "Line 33 sorry replaced with valid proof"},
+    {"name": "const_continuousAt_proved", "check": "Line 35 sorry replaced with valid proof"},
+    {"name": "const_continuousOn_proved", "check": "Line 37 sorry replaced with valid proof"},
+    {"name": "const_continuous_proved", "check": "Line 39 sorry replaced with valid proof"},
+    {"name": "id_continuous_proved", "check": "Line 42 sorry replaced with valid proof"},
+    {"name": "builds_without_errors", "check": "build_log.txt shows zero errors"},
+    {"name": "uses_mathlib_api", "check": "Proofs use existing Mathlib lemmas rather than proving from first principles"}
+  ]
+}

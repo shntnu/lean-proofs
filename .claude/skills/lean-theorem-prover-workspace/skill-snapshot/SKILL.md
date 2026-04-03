@@ -61,10 +61,6 @@ Map the math to Lean/Mathlib:
 | Ring/field | `R` with `[CommRing R]` or `[Field R]` | |
 | Vector space | `Module R M` | `[AddCommMonoid M]` |
 | Function composition | `g ∘ f` or `Function.comp` | |
-| Continuous function | `Continuous f`, `ContinuousAt f x₀` | Topology on domain/codomain |
-| Sequence limit | `Filter.Tendsto a atTop (nhds L)` | |
-| Even/Odd | `Even n`, `Odd n` | |
-| Injectivity/surjectivity | `Function.Injective f`, `Function.Surjective f` | |
 
 Use `import Mathlib` to get everything. Narrow imports later if needed.
 
@@ -131,9 +127,7 @@ proofs over a ring, the standard set is `[CommRing R] [Fintype n] [DecidableEq n
 
 ## Diagnostic Tools
 
-### Project-specific diagnostics
-
-If the project has `scripts/lean-diag.sh` (the lean_proofs repo does):
+### `scripts/lean-diag.sh`
 
 ```bash
 ./scripts/lean-diag.sh status          # overview: sorry count, errors, per-file summary
@@ -141,23 +135,10 @@ If the project has `scripts/lean-diag.sh` (the lean_proofs repo does):
 ./scripts/lean-diag.sh check           # just pass/fail build check
 ```
 
-The `goals` subcommand inserts `trace_state` before each `sorry`, runs the
-elaborator, and prints what needs to be proved at each position.
-
-### Generic diagnostics (any Lean project)
-
-When working in a project without `lean-diag.sh`, use `lake build` directly:
-
-```bash
-lake build ModuleName              # build a specific module (faster)
-lake build                         # build everything
-```
-
-To see goal states without `lean-diag.sh`, temporarily insert `trace_state` before a
-`sorry`, run `lake build`, and read the output. Remove `trace_state` after.
-
-**Always check what the sorry needs before writing tactics** — either via
-`lean-diag.sh goals` or by reading the theorem's type signature carefully.
+The `goals` subcommand is the most important — it inserts `trace_state` before each
+`sorry`, runs the elaborator, and prints what needs to be proved at each position.
+**Always run `goals` before writing tactics** to see the exact goal shape. This
+replaces the interactive goal view you'd get from an editor's Lean integration.
 
 ---
 
@@ -167,7 +148,7 @@ This is the core loop. Repeat until the build is clean:
 
 ```mermaid
 graph TD
-    A["Read theorem signature\n+ run lake build to see goals"] --> B["Choose proof strategy"]
+    A["Run: ./scripts/lean-diag.sh goals FILE\n(see what each sorry needs)"] --> B["Choose proof strategy"]
     B --> C["Write tactics — replace sorry"]
     C --> D["lake build"]
     D --> E{Check output}
@@ -202,71 +183,10 @@ Read the theorem's type signature. The *shape of the goal* tells you which strat
 | `∀ x, P x` | Introduce | `intro x` |
 | `f a = f b`, need `a = b` | Congruence | `congr 1` |
 | `h : f = g`, need `f x = g x` | Function application | `exact congr_fun h x` |
-| `P 0 ∧ ∀ n, P n → P (n+1)` | Induction | `induction n with \| zero => ... \| succ n ih => ...` |
-| `¬ P` or `False` | Contradiction | `by_contra h` then derive `False` |
-| `Even n ∨ Odd n`, parity | Case split + omega | `rcases ih with ⟨k, hk⟩ \| ⟨k, hk⟩` then `omega` |
-| Natural number arithmetic | Automation | `omega` — solves linear ℕ/ℤ arithmetic |
-| Real/rational inequalities | Automation | `linarith` — solves linear arithmetic over ordered fields |
-| Mathlib lemma exists for goal | Library search | `exact?` mentally, then write `exact continuous_const` etc. |
-| `∃ x, P x` | Witness | `use witness` or `refine ⟨witness, ?_⟩` |
-| `dist a c ≤ dist a b + dist b c` | Triangle inequality | `calc` with `dist_triangle` and `gcongr` |
-| `∀ ε > 0, ∃ N, ...` (ε-δ) | Epsilon management | Use `ε/2`, get witnesses, combine with triangle inequality |
 
 ### Step 3: Write Tactics
 
-#### Power tactics — try these first
-
-Many goals in Lean 4 + Mathlib can be closed by a single power tactic. Before
-writing a multi-step proof, try:
-
-| Tactic | What it solves | When to use |
-|---|---|---|
-| `omega` | Linear ℕ/ℤ arithmetic | Any goal involving `+`, `*`, `<`, `≤` on naturals/integers |
-| `linarith` | Linear arithmetic over ordered fields | Inequalities on ℝ, ℚ with hypotheses |
-| `positivity` | `0 < x`, `0 ≤ x` | Positivity of expressions |
-| `aesop` | Logic, set membership, basic automation | When the goal looks "obviously true" |
-| `grind` | Heavy-duty automation | Kitchen-sink closer — try when others fail |
-| `norm_num` | Concrete numeric goals | `2 + 3 = 5`, `(7:ℚ) > 0` |
-| `simp` | Simplification with default lemma set | Quick wins, but `simp only [...]` is more predictable |
-| `ring` | Ring equalities | `a * (b + c) = a * b + a * c` |
-| `field_simp` | Clear denominators | Goals with fractions |
-| `gcongr` | Monotonicity / congruence for ≤ | `a ≤ b → f a ≤ f b` type goals |
-
-#### Proof patterns
-
-**Induction on ℕ** — for properties of natural numbers:
-```lean
-induction n with
-| zero => exact ⟨0, by ring⟩
-| succ n ih =>
-  rcases ih with ⟨k, hk⟩ | ⟨k, hk⟩
-  · right; exact ⟨k, by omega⟩
-  · left; exact ⟨k + 1, by omega⟩
-```
-
-**Epsilon-delta / ε/2 argument** — for convergence and continuity:
-```lean
-intro ε hε
-have hε2 : ε / 2 > 0 := by linarith
-obtain ⟨N, hN⟩ := h (ε / 2) hε2
-refine ⟨N, ?_⟩
-intro n hn m hm
-calc dist (a n) (a m)
-    ≤ dist (a n) L + dist L (a m) := dist_triangle _ _ _
-    _ ≤ ε / 2 + ε / 2 := by gcongr; ...
-    _ = ε := by ring
-```
-
-**Mathlib API lookup** — for well-known facts:
-```lean
--- Continuity of constant/identity functions
-exact continuous_const       -- Continuous (fun x ↦ c)
-exact continuous_id          -- Continuous (fun x ↦ x)
-exact continuousAt_const     -- ContinuousAt (fun x ↦ c) x₀
-
--- Common Mathlib patterns: the lemma name often matches the goal
--- continuous_add, continuous_mul, continuous_neg, ...
-```
+These patterns recur across proofs in this repo:
 
 **Unfold–Simplify–Close** — for definitional equalities:
 ```lean
@@ -279,6 +199,13 @@ exact Finset.sum_congr rfl fun k _ => by rw [h k]
 ```lean
 intro b
 exact congr_fun (core_lemma args) b
+```
+
+**Lift Pointwise to Sum** — when a sum's terms are individually equal:
+```lean
+apply Finset.sum_congr rfl
+intro k _
+rw [earlier_theorem args]
 ```
 
 Keep proofs to 2–6 tactic lines. If a proof grows beyond ~8 lines, the theorem

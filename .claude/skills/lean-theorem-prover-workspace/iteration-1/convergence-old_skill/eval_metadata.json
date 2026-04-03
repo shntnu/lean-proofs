@@ -1,0 +1,11 @@
+{
+  "eval_id": 2,
+  "eval_name": "convergence-epsilon-delta",
+  "prompt": "Prove Sequence.IsCauchy.convergent (convergent implies Cauchy) in Section_6_1.lean using custom Chapter6.Sequence types",
+  "assertions": [
+    {"name": "sorry_replaced", "check": "The sorry on line 341 is replaced with a valid tactic proof"},
+    {"name": "builds_without_errors", "check": "build_log.txt shows zero errors (sorry warnings for other exercises OK)"},
+    {"name": "proof_uses_triangle_inequality", "check": "Proof uses dist_triangle, triangle inequality, or equivalent concept"},
+    {"name": "proof_concise", "check": "Proof body is at most 15 tactic lines"}
+  ]
+}

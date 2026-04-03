@@ -1,0 +1,52 @@
+ℹ [3266/3280] Replayed Analysis.Section_5_1
+info: Analysis/Section_5_1.lean:56:0: ↑fun x ↦ ↑x ^ 2 : Sequence
+ℹ [3273/3280] Replayed Analysis.Section_5_epilogue
+info: Analysis/Section_5_epilogue.lean:197:0: Real.mk_le {f g : CauSeq ℚ abs} : Real.mk f ≤ Real.mk g ↔ f ≤ g
+info: Analysis/Section_5_epilogue.lean:198:0: Real.mk_le_of_forall_le {f : CauSeq ℚ abs} {x : ℝ} (h : ∃ i, ∀ j ≥ i, ↑(↑f j) ≤ x) : Real.mk f ≤ x
+info: Analysis/Section_5_epilogue.lean:199:0: Real.mk_const {x : ℚ} : Real.mk (CauSeq.const abs x) = ↑x
+ℹ [3274/3280] Replayed Analysis.Section_6_2
+info: Analysis/Section_6_2.lean:44:0: EReal.neg_top : -⊤ = ⊥
+info: Analysis/Section_6_2.lean:45:0: EReal.neg_bot : -⊥ = ⊤
+info: Analysis/Section_6_2.lean:55:0: EReal.coe_lt_coe_iff {x y : ℝ} : ↑x < ↑y ↔ x < y
+info: Analysis/Section_6_2.lean:75:0: instCompleteLinearOrderEReal : CompleteLinearOrder EReal
+info: Analysis/Section_6_2.lean:176:0: isLUB_iff_sSup_eq.{u_1} {α : Type u_1} [CompleteSemilatticeSup α] {s : Set α} {a : α} : IsLUB s a ↔ sSup s = a
+info: Analysis/Section_6_2.lean:177:0: isGLB_iff_sInf_eq.{u_1} {α : Type u_1} [CompleteSemilatticeInf α] {s : Set α} {a : α} : IsGLB s a ↔ sInf s = a
+ℹ [3275/3280] Built Analysis.Section_6_1 (4.8s)
+info: Analysis/Section_6_1.lean:24:0: Real.dist_eq (x y : ℝ) : dist x y = |x - y|
+ℹ [3278/3280] Replayed Analysis.Section_9_1
+info: Analysis/Section_9_1.lean:25:0: Set.Icc_def.{u_1} {α : Type u_1} [Preorder α] (a b : α) : {x | a ≤ x ∧ x ≤ b} = Set.Icc a b
+info: Analysis/Section_9_1.lean:26:0: Set.Ico_def.{u_1} {α : Type u_1} [Preorder α] (a b : α) : {x | a ≤ x ∧ x < b} = Set.Ico a b
+info: Analysis/Section_9_1.lean:27:0: Set.Ioc_def.{u_1} {α : Type u_1} [Preorder α] (a b : α) : {x | a < x ∧ x ≤ b} = Set.Ioc a b
+info: Analysis/Section_9_1.lean:28:0: Set.Ioo_def.{u_1} {α : Type u_1} [Preorder α] (a b : α) : {x | a < x ∧ x < b} = Set.Ioo a b
+info: Analysis/Section_9_1.lean:29:0: Set.Ici_def.{u_1} {α : Type u_1} [Preorder α] (b : α) : {x | b ≤ x} = Set.Ici b
+info: Analysis/Section_9_1.lean:30:0: Set.Ioi_def.{u_1} {α : Type u_1} [Preorder α] (a : α) : {x | a < x} = Set.Ioi a
+info: Analysis/Section_9_1.lean:31:0: Set.Iic_def.{u_1} {α : Type u_1} [Preorder α] (b : α) : {x | x ≤ b} = Set.Iic b
+info: Analysis/Section_9_1.lean:32:0: Set.Iio_def.{u_1} {α : Type u_1} [Preorder α] (a : α) : {x | x < a} = Set.Iio a
+info: Analysis/Section_9_1.lean:34:0: EReal.image_coe_Icc (x y : ℝ) : Real.toEReal '' Set.Icc x y = Set.Icc ↑x ↑y
+info: Analysis/Section_9_1.lean:35:0: EReal.image_coe_Ico (x y : ℝ) : Real.toEReal '' Set.Ico x y = Set.Ico ↑x ↑y
+info: Analysis/Section_9_1.lean:36:0: EReal.image_coe_Ioc (x y : ℝ) : Real.toEReal '' Set.Ioc x y = Set.Ioc ↑x ↑y
+info: Analysis/Section_9_1.lean:37:0: EReal.image_coe_Ioo (x y : ℝ) : Real.toEReal '' Set.Ioo x y = Set.Ioo ↑x ↑y
+info: Analysis/Section_9_1.lean:38:0: EReal.image_coe_Ici (x : ℝ) : Real.toEReal '' Set.Ici x = Set.Ico ↑x ⊤
+info: Analysis/Section_9_1.lean:39:0: EReal.image_coe_Ioi (x : ℝ) : Real.toEReal '' Set.Ioi x = Set.Ioo ↑x ⊤
+info: Analysis/Section_9_1.lean:40:0: EReal.image_coe_Iic (x : ℝ) : Real.toEReal '' Set.Iic x = Set.Ioc ⊥ ↑x
+info: Analysis/Section_9_1.lean:41:0: EReal.image_coe_Iio (x : ℝ) : Real.toEReal '' Set.Iio x = Set.Ioo ⊥ ↑x
+⚠ [3280/3280] Replayed Analysis.Section_9_4
+info: Analysis/Section_9_4.lean:28:0: ContinuousOn.eq_1.{u_1, u_2} {X : Type u_1} {Y : Type u_2} [TopologicalSpace X] [TopologicalSpace Y] (f : X → Y)
+  (s : Set X) : ContinuousOn f s = ∀ x ∈ s, ContinuousWithinAt f s x
+info: Analysis/Section_9_4.lean:29:0: continuousOn_univ.{u_1, u_2} {α : Type u_1} {β : Type u_2} [TopologicalSpace α] [TopologicalSpace β] {f : α → β} :
+  ContinuousOn f Set.univ ↔ Continuous f
+info: Analysis/Section_9_4.lean:30:0: continuousWithinAt_univ.{u_1, u_2} {α : Type u_1} {β : Type u_2} [TopologicalSpace α] [TopologicalSpace β] (f : α → β)
+  (x : α) : ContinuousWithinAt f Set.univ x ↔ ContinuousAt f x
+warning: Analysis/Section_9_4.lean:33:43: unused variable `x`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: Analysis/Section_9_4.lean:36:37: unused variable `x`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: Analysis/Section_9_4.lean:39:34: unused variable `x`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: Analysis/Section_9_4.lean:42:32: unused variable `x`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+Build completed successfully (3280 jobs).

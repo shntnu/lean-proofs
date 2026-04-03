@@ -1,0 +1,24 @@
+{
+  "expectations": [
+    {
+      "text": "sorry_replaced",
+      "passed": true,
+      "evidence": "sorry replaced in IsCauchy.convergent (verified manually)"
+    },
+    {
+      "text": "builds_without_errors",
+      "passed": true,
+      "evidence": "Build clean"
+    },
+    {
+      "text": "proof_uses_triangle_inequality",
+      "passed": true,
+      "evidence": "Uses dist_triangle explicitly in calc proof"
+    },
+    {
+      "text": "proof_concise",
+      "passed": true,
+      "evidence": "Proof has 2 lines"
+    }
+  ]
+}

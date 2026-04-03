@@ -3,43 +3,42 @@
   "evals": [
     {
       "id": 0,
-      "prompt": "Create a new claim and prove it: the transpose of a matrix product reverses the order, i.e., (A * B)ᵀ = Bᵀ * Aᵀ",
-      "expected_output": "A claim.md file and a proof.lean file that compiles with zero errors and zero sorry",
+      "prompt": "Prove the three sorry exercises in /work/users/shsingh/GitHub/misc/analysis/Analysis/Section_4_4.lean: `Nat.no_infinite_descent` (line 48, no infinitely descending sequence of naturals), `Nat.even_or_odd''` (line 64, every natural is even or odd), and `Nat.not_even_and_odd` (line 67, no natural is both even and odd). Work in the /work/users/shsingh/GitHub/misc/analysis/ directory. Use `lake build Analysis.Section_4_4` to verify. The file already imports Mathlib.Tactic.",
+      "expected_output": "All 3 sorry replaced with valid tactic proofs; lake build shows only sorry warnings for the OTHER exercises in the file, zero errors",
       "files": [],
       "assertions": [
-        {"name": "claim_file_exists", "check": "claim.md file exists in outputs"},
-        {"name": "lean_file_exists", "check": "proof.lean file exists in outputs"},
-        {"name": "no_sorry_in_proof", "check": "proof.lean contains zero occurrences of 'sorry'"},
-        {"name": "builds_clean", "check": "build_log.txt shows no errors and no sorry warnings"},
-        {"name": "uses_mathlib_types", "check": "Uses Matrix type from Mathlib, not custom matrix definition"},
-        {"name": "proof_structure", "check": "Has namespace, docstrings, and import Mathlib"}
+        {"name": "no_infinite_descent_proved", "check": "The sorry on line 49 of Section_4_4.lean is replaced with a valid tactic proof"},
+        {"name": "even_or_odd_proved", "check": "The sorry on line 65 of Section_4_4.lean is replaced with a valid tactic proof"},
+        {"name": "not_even_and_odd_proved", "check": "The sorry on line 68 of Section_4_4.lean is replaced with a valid tactic proof"},
+        {"name": "builds_without_errors", "check": "lake build Analysis.Section_4_4 produces zero errors (sorry warnings for other exercises are OK)"},
+        {"name": "proofs_concise", "check": "Each proof body is at most 10 tactic lines"}
       ]
     },
     {
       "id": 1,
-      "prompt": "Prove the theorems in the provided Lean file. All three theorems have sorry placeholders that need to be replaced with valid proofs.",
-      "expected_output": "A proof.lean with all 3 sorry replaced by valid tactic proofs that compile cleanly",
-      "files": ["iteration-1/harmony-prove-sorry/input.lean"],
+      "prompt": "Prove the five sorry exercises on lines 33-42 of /work/users/shsingh/GitHub/misc/analysis/Analysis/Section_9_4.lean: constant function ContinuousWithinAt (line 33), constant ContinuousAt (line 35), constant ContinuousOn (line 37), constant Continuous (line 39), and identity Continuous (line 42). These are basic Mathlib continuity facts. Work in /work/users/shsingh/GitHub/misc/analysis/ and verify with `lake build Analysis.Section_9_4`.",
+      "expected_output": "All 5 sorry replaced with valid proofs (likely 1-line each using Mathlib lemmas); lake build shows zero errors",
+      "files": [],
       "assertions": [
-        {"name": "all_sorry_replaced", "check": "Zero 'sorry' remaining in proof.lean"},
-        {"name": "builds_clean", "check": "build_log.txt shows no errors and no sorry warnings"},
-        {"name": "three_theorems_proved", "check": "All 3 theorems (mul_col_eq, harmony_per_feature_independence, harmony_correction_independent) have tactic proofs"},
-        {"name": "proofs_chain", "check": "Later theorems reference earlier ones (harmony_per_feature_independence uses mul_col_eq, harmony_correction_independent uses harmony_per_feature_independence)"},
-        {"name": "proofs_concise", "check": "Each proof body is at most 8 tactic lines"}
+        {"name": "const_continuousWithinAt_proved", "check": "Line 33 sorry replaced with valid proof"},
+        {"name": "const_continuousAt_proved", "check": "Line 35 sorry replaced with valid proof"},
+        {"name": "const_continuousOn_proved", "check": "Line 37 sorry replaced with valid proof"},
+        {"name": "const_continuous_proved", "check": "Line 39 sorry replaced with valid proof"},
+        {"name": "id_continuous_proved", "check": "Line 42 sorry replaced with valid proof"},
+        {"name": "builds_without_errors", "check": "lake build produces zero errors"},
+        {"name": "uses_mathlib_api", "check": "Proofs use existing Mathlib lemmas (e.g. continuousWithinAt_const, continuous_const, continuous_id) rather than proving from first principles"}
       ]
     },
     {
       "id": 2,
-      "prompt": "I have a claim: For any linear map f between finite-dimensional vector spaces, the rank of f plus the nullity of f equals the dimension of the domain (rank-nullity theorem). Create the Lean skeleton for it.",
-      "expected_output": "A claim.md and skeleton.lean that parses cleanly (sorry warnings OK, errors not OK) using existing Mathlib types",
+      "prompt": "Prove the sorry exercise `Sequence.IsCauchy.convergent` at line 340 of /work/users/shsingh/GitHub/misc/analysis/Analysis/Section_6_1.lean. This says every convergent sequence is Cauchy. The file uses a custom `Chapter6.Sequence` type (a wrapper around ℤ → ℝ) with custom definitions for IsCauchy, Convergent, TendsTo, EventuallySteady, etc. You'll need to read the definitions earlier in the file to understand the types. Work in /work/users/shsingh/GitHub/misc/analysis/ and verify with `lake build Analysis.Section_6_1`.",
+      "expected_output": "The sorry is replaced with a valid tactic proof; lake build shows zero errors for this theorem",
       "files": [],
       "assertions": [
-        {"name": "claim_file_exists", "check": "claim.md file exists in outputs"},
-        {"name": "skeleton_file_exists", "check": "skeleton.lean file exists in outputs"},
-        {"name": "has_sorry", "check": "skeleton.lean contains sorry (it is a skeleton, not a proof)"},
-        {"name": "parses_clean", "check": "build_log.txt shows only sorry warnings, no type errors or parse errors"},
-        {"name": "uses_existing_mathlib", "check": "Uses Mathlib types like LinearMap.rank, Module.finrank, LinearMap.ker, not custom definitions of rank/nullity"},
-        {"name": "proper_type_classes", "check": "Includes FiniteDimensional or equivalent type class constraints"}
+        {"name": "sorry_replaced", "check": "The sorry on line 341 is replaced with a valid tactic proof"},
+        {"name": "builds_without_errors", "check": "lake build produces zero errors (sorry warnings for other exercises OK)"},
+        {"name": "proof_uses_triangle_inequality", "check": "Proof uses dist_triangle, triangle inequality, or equivalent concept"},
+        {"name": "proof_concise", "check": "Proof body is at most 15 tactic lines"}
       ]
     }
   ]

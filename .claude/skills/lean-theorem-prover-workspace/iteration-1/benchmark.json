@@ -1,54 +1,94 @@
 {
   "skill_name": "lean-theorem-prover",
   "iteration": 1,
-  "timestamp": "2026-04-03",
   "configurations": [
     {
       "name": "with_skill",
-      "pass_rate": 1.0,
-      "total_assertions": 17,
-      "passed_assertions": 17,
-      "mean_duration_seconds": 93.4,
-      "mean_tokens": 29199,
-      "pass_rate_by_eval": {
-        "transpose-full-pipeline": {"pass_rate": 1.0, "duration_s": 76, "tokens": 25809},
-        "harmony-prove-sorry": {"pass_rate": 1.0, "duration_s": 55, "tokens": 22761},
-        "rank-nullity-formalize": {"pass_rate": 1.0, "duration_s": 150, "tokens": 39028}
+      "evals": [
+        {
+          "eval_name": "number-theory-induction",
+          "pass_rate": 1.0,
+          "assertions_passed": 5,
+          "assertions_total": 5,
+          "tokens": 34144,
+          "duration_seconds": 172.8
+        },
+        {
+          "eval_name": "continuity-mathlib-api",
+          "pass_rate": 1.0,
+          "assertions_passed": 7,
+          "assertions_total": 7,
+          "tokens": 43077,
+          "duration_seconds": 268.2
+        },
+        {
+          "eval_name": "convergence-epsilon-delta",
+          "pass_rate": 1.0,
+          "assertions_passed": 4,
+          "assertions_total": 4,
+          "tokens": 34599,
+          "duration_seconds": 164.2
+        }
+      ],
+      "aggregate": {
+        "mean_pass_rate": 1.0,
+        "stddev_pass_rate": 0.0,
+        "mean_tokens": 37273,
+        "stddev_tokens": 4809,
+        "mean_duration_seconds": 201.7,
+        "stddev_duration_seconds": 55.8
       }
     },
     {
-      "name": "without_skill",
-      "pass_rate": 1.0,
-      "total_assertions": 17,
-      "passed_assertions": 17,
-      "mean_duration_seconds": 131.0,
-      "mean_tokens": 28459,
-      "pass_rate_by_eval": {
-        "transpose-full-pipeline": {"pass_rate": 1.0, "duration_s": 181, "tokens": 29554, "note": "3 fix-and-verify rounds needed"},
-        "harmony-prove-sorry": {"pass_rate": 1.0, "duration_s": 44, "tokens": 17868, "note": "read existing proofs from repo"},
-        "rank-nullity-formalize": {"pass_rate": 1.0, "duration_s": 168, "tokens": 37955}
+      "name": "old_skill",
+      "evals": [
+        {
+          "eval_name": "number-theory-induction",
+          "pass_rate": 1.0,
+          "assertions_passed": 5,
+          "assertions_total": 5,
+          "tokens": 33132,
+          "duration_seconds": 150.6
+        },
+        {
+          "eval_name": "continuity-mathlib-api",
+          "pass_rate": 1.0,
+          "assertions_passed": 7,
+          "assertions_total": 7,
+          "tokens": 35512,
+          "duration_seconds": 226.9
+        },
+        {
+          "eval_name": "convergence-epsilon-delta",
+          "pass_rate": 1.0,
+          "assertions_passed": 4,
+          "assertions_total": 4,
+          "tokens": 59337,
+          "duration_seconds": 319.6
+        }
+      ],
+      "aggregate": {
+        "mean_pass_rate": 1.0,
+        "stddev_pass_rate": 0.0,
+        "mean_tokens": 42660,
+        "stddev_tokens": 14334,
+        "mean_duration_seconds": 232.4,
+        "stddev_duration_seconds": 85.1
       }
     }
   ],
   "delta": {
-    "pass_rate": "0% (both 100%)",
-    "duration": "-29% faster with skill (93s vs 131s mean)",
-    "key_difference": "Skill agent got clean builds on first attempt; baseline needed 3 error-fix iterations on Test 1 (76s vs 181s). Both ultimately passed all assertions."
+    "pass_rate_delta": 0.0,
+    "tokens_delta": -5387,
+    "tokens_delta_pct": -12.6,
+    "duration_delta_seconds": -30.7,
+    "duration_delta_pct": -13.2
   },
-  "analysis": {
-    "discriminating_metrics": [
-      "Duration on Test 1: 76s (with_skill) vs 181s (baseline) — 2.4x faster. Skill guidance prevented syntax errors that required multiple fix rounds.",
-      "First-attempt success: with_skill succeeded first try on all tests. Baseline needed 3 rounds on Test 1."
-    ],
-    "non_discriminating": [
-      "Test 2 (harmony): confounded — baseline read existing proofs from repo. 44s baseline vs 55s with_skill.",
-      "Test 3 (rank-nullity): comparable quality. Both agents found correct Mathlib types. with_skill used DivisionRing (more general), baseline used Field."
-    ],
-    "observations": [
-      "The skill's value is in EFFICIENCY, not just correctness — both can eventually get there, but the skill reduces the error-fix loop.",
-      "The with_skill agent produced more focused output (46 lines vs 69 on Test 1, 4 theorems vs 7 on Test 3), suggesting the skill's 'keep it boring' guidance channels effort productively.",
-      "The with_skill claim.md files are more structured (Phase 1 template: Objects/Properties/Proof sketch/Decomposition).",
-      "Neither agent could run Bash from subagent context for Tests 1-2 with_skill — need to grant Bash permissions to subagents or add verification in the main context."
-    ]
-  }
+  "analyst_observations": [
+    "All assertions pass for both \u2014 skill does not improve correctness on these exercises",
+    "Skill gives meaningful efficiency on hardest exercise (convergence): 35K/164s vs 59K/320s \u2014 42pct token reduction, 49pct time reduction",
+    "On easy/medium exercises, skill adds slight overhead from reading instructions without benefit",
+    "Key weakness: strategy table and tactic playbook only cover matrix algebra patterns",
+    "Diagnostic tooling (lean-diag.sh) is repo-specific and unusable in foreign projects"
+  ]
 }

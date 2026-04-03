@@ -1,0 +1,39 @@
+{
+  "expectations": [
+    {
+      "text": "const_continuousWithinAt_proved",
+      "passed": true,
+      "evidence": "Found continuousWithinAt_const in proof"
+    },
+    {
+      "text": "const_continuousAt_proved",
+      "passed": true,
+      "evidence": "Found continuousAt_const in proof"
+    },
+    {
+      "text": "const_continuousOn_proved",
+      "passed": true,
+      "evidence": "Found continuousOn_const in proof"
+    },
+    {
+      "text": "const_continuous_proved",
+      "passed": true,
+      "evidence": "Found continuous_const in proof"
+    },
+    {
+      "text": "id_continuous_proved",
+      "passed": true,
+      "evidence": "Found continuous_id in proof"
+    },
+    {
+      "text": "builds_without_errors",
+      "passed": true,
+      "evidence": "Build clean"
+    },
+    {
+      "text": "uses_mathlib_api",
+      "passed": true,
+      "evidence": "Uses 5/5 Mathlib lemmas"
+    }
+  ]
+}
