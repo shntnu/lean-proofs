@@ -4,6 +4,26 @@ Tracks what we tried, what we learned, and what to do next — across sessions.
 
 ---
 
+## 2026-04-03: Complementarity audit and cleanup
+
+### What was done
+- Cloned `cameronfreer/lean4-skills` and ran `/lean4:review --scope=project` with a complementarity lens — comparing every component in this repo against what the plugin provides.
+- Deleted `scripts/lean-diag.sh` (140 lines) — its three subcommands (`status`, `goals`, `check`) duplicated `sorry_analyzer.py`, `lean_goal()` LSP, and `lean_diagnostic_messages()` from the plugin.
+- Deleted `.claude/skills/lean-theorem-prover-workspace/` (34 files, 239K) — eval artifacts from the retired custom skill, whose insights were already captured in this log.
+- Updated `CLAUDE.md` to remove all lean-diag.sh references.
+- Cleaned stale permission entries from `.claude/settings.local.json`.
+
+### Key findings
+- **Plugin/project separation principle**: this repo should own only *content* (claims, proofs), *project config* (lakefile, toolchain, nix), and *workflow docs* (CLAUDE.md pointing to the plugin). All tooling — diagnostics, sorry analysis, goal extraction, axiom checking, golfing, refactoring — belongs in `lean4-skills`.
+- **lean-diag.sh was a pre-plugin artifact**: built before `/lean4` adoption, it worked by mutating files (inserting `trace_state`) — fragile and slower than the LSP approach. The plugin's equivalents are strictly better (per-line precision, no file mutation, structured JSON output).
+- **Eval artifacts vs. eval insights**: raw grading/timing JSON is disposable once the findings are written up. The learning log is the durable artifact, not the data files.
+
+### What to do next
+- Try `/lean4:formalize` or `/lean4:autoformalize` on a new claim to test the full pipeline with the adopted skill suite.
+- Consider a claim from the morphological profiling domain (e.g., sphering/whitening properties, batch effect correction bounds).
+
+---
+
 ## 2026-04-03: SVD-PCA proof, skill retirement, and /lean4 adoption
 
 ### What was done
