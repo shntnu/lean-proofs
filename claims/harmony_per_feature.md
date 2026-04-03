@@ -21,11 +21,12 @@ $$W_k = \underbrace{\left(\Phi \cdot \text{diag}(R_k) \cdot \Phi^T + \lambda I\r
 
 ## Core Theorem (Column Separability)
 
-**Theorem 1** (Per-Feature Independence). *Let $C \in \mathbb{R}^{m \times n}$ and $Z^T_1, Z^T_2 \in \mathbb{R}^{n \times d}$. If $Z^T_1$ and $Z^T_2$ agree on column $j$, i.e., $\forall i,\; Z^T_1(i,j) = Z^T_2(i,j)$, then:*
+**Theorem 1** (Per-Feature Independence).
+> Let $C \in \mathbb{R}^{m \times n}$ and $Z^T_1, Z^T_2 \in \mathbb{R}^{n \times d}$. If $Z^T_1$ and $Z^T_2$ agree on column $j$, i.e., $\forall i,\; Z^T_1(i,j) = Z^T_2(i,j)$, then:
+>
+> $$(C \cdot Z^T_1)(\cdot, j) = (C \cdot Z^T_2)(\cdot, j)$$
 
-$$(C \cdot Z^T_1)(\cdot, j) = (C \cdot Z^T_2)(\cdot, j)$$
-
-*Proof.* By definition of matrix multiplication:
+**Proof.** By definition of matrix multiplication:
 
 $$(C \cdot Z^T)_{i,j} = \sum_{k=1}^n C_{i,k} \cdot Z^T_{k,j}$$
 
@@ -33,13 +34,14 @@ The right-hand side depends on $Z^T$ only through column $j$. If $Z^T_1(\cdot, j
 
 ## Full Correction Theorem
 
-**Theorem 2** (Full Harmony Correction). *The corrected value of cell $i$ on feature $j$ is:*
+**Theorem 2** (Full Harmony Correction).
+> The corrected value of cell $i$ on feature $j$ is:
+>
+> $$Z_{\text{corr}}[j,i] = Z[j,i] - \sum_{k=1}^K R_k(i) \cdot W_k[b(i), j]$$
+>
+> If we replace $Z$ with $Z'$ that differs only on features $j' \neq j$, the corrected value of feature $j$ is unchanged.
 
-$$Z_{\text{corr}}[j,i] = Z[j,i] - \sum_{k=1}^K R_k(i) \cdot W_k[b(i), j]$$
-
-*If we replace $Z$ with $Z'$ that differs only on features $j' \neq j$, the corrected value of feature $j$ is unchanged.*
-
-*Proof.* Each $W_k = C_k \cdot Z^T$ by Theorem 1 has column $j$ depending only on feature $j$. The correction is a linear combination of these columns scaled by $R_k(i)$, preserving the per-feature independence. $\square$
+**Proof.** Each $W_k = C_k \cdot Z^T$ by Theorem 1 has column $j$ depending only on feature $j$. The correction is a linear combination of these columns scaled by $R_k(i)$, preserving the per-feature independence. $\square$
 
 ## Empirical Validation
 

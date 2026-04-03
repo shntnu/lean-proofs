@@ -13,6 +13,7 @@ nix develop                         # Enter dev shell — or just cd in with dir
 
 - Lean toolchain: `lean-toolchain` (v4.29.0)
 - Mathlib: pinned in `lakefile.lean`, cached oleans via `lake exe cache get`
+- Required Claude Code plugin: `lean4@lean4-skills` (auto-enabled via `.claude/settings.json`; install with `/plugins add lean4-skills`)
 
 ## Directory Conventions
 
@@ -22,7 +23,6 @@ LeanProofs/                   # One .lean file per claim
 LeanProofs.lean               # Root — imports all modules
 scripts/lean-diag.sh          # Proof diagnostics (goal states, status)
 .claude/.lsp.json             # Lean language server config for Claude Code
-.claude/skills/               # Skills (lean-theorem-prover)
 ```
 
 ## Adding a New Claim
@@ -30,11 +30,11 @@ scripts/lean-diag.sh          # Proof diagnostics (goal states, status)
 1. Write `claims/your_claim.md` — the mathematical statement in plain language
 2. Create `LeanProofs/YourClaim.lean` — theorem statements with `sorry`
 3. Add `import LeanProofs.YourClaim` to `LeanProofs.lean`
-4. Use the theorem-proving skill to iteratively replace `sorry` with proofs
+4. Use `/lean4:formalize` or `/lean4:prove` to iteratively replace `sorry` with proofs
 
 ## Proving Theorems
 
-All interactive proof work is handled by the `lean-theorem-prover` skill (`.claude/skills/lean-theorem-prover/`). It encodes the correct prove-check-adjust loop using `lake build` for verification and `scripts/lean-diag.sh goals` for goal-state inspection. Do NOT attempt ad-hoc proof iteration outside that skill.
+Use the `/lean4` skill suite for all proof work — `/lean4:formalize` for interactive formalization, `/lean4:prove` for guided sorry-filling, or `/lean4:autoprove` for autonomous proving. The `scripts/lean-diag.sh goals` script provides goal-state inspection as a complement to the `/lean4` LSP tools.
 
 ## Claims
 

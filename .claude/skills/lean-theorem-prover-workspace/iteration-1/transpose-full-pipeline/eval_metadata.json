@@ -1,6 +1,0 @@
-{
-  "eval_id": 0,
-  "eval_name": "transpose-full-pipeline",
-  "prompt": "Create a new claim and prove it: the transpose of a matrix product reverses the order, i.e., (A * B)ᵀ = Bᵀ * Aᵀ",
-  "assertions": []
-}
