@@ -11,3 +11,6 @@ result
 *.olean
 *.ilean
 *.trace
+
+# Claude Code personal settings (permissions, env vars)
+.claude/settings.local.json

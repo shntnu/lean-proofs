@@ -3,9 +3,12 @@
 ## Commands
 
 ```bash
-lake build                # Build and verify all proofs
-lake exe cache get        # Fetch Mathlib prebuilt cache (first time only)
-nix develop               # Enter dev shell — or just cd in with direnv
+lake build                          # Build and verify all proofs
+lake exe cache get                  # Fetch Mathlib prebuilt cache (first time only)
+nix develop                         # Enter dev shell — or just cd in with direnv
+./scripts/lean-diag.sh status       # Proof status overview (sorry count, errors)
+./scripts/lean-diag.sh goals FILE   # Show goal states at each sorry in FILE
+./scripts/lean-diag.sh check        # Pass/fail build check
 ```
 
 - Lean toolchain: `lean-toolchain` (v4.29.0)
@@ -17,6 +20,9 @@ nix develop               # Enter dev shell — or just cd in with direnv
 claims/                       # Mathematical claims as markdown
 LeanProofs/                   # One .lean file per claim
 LeanProofs.lean               # Root — imports all modules
+scripts/lean-diag.sh          # Proof diagnostics (goal states, status)
+.claude/.lsp.json             # Lean language server config for Claude Code
+.claude/skills/               # Skills (lean-theorem-prover)
 ```
 
 ## Adding a New Claim
@@ -28,10 +34,10 @@ LeanProofs.lean               # Root — imports all modules
 
 ## Proving Theorems
 
-All interactive proof work (Lean MCP tools, tactic iteration, goal inspection) is handled by a dedicated theorem-proving skill. Do NOT attempt ad-hoc proof iteration outside that skill — it encodes the correct prove-check-adjust loop.
+All interactive proof work is handled by the `lean-theorem-prover` skill (`.claude/skills/lean-theorem-prover/`). It encodes the correct prove-check-adjust loop using `lake build` for verification and `scripts/lean-diag.sh goals` for goal-state inspection. Do NOT attempt ad-hoc proof iteration outside that skill.
 
 ## Claims
 
 | Claim | Lean file | Claim file | Status |
 |-------|-----------|------------|--------|
-| Harmony per-feature independence | `LeanProofs/HarmonyPerFeature.lean` | `claims/harmony_per_feature.md` | `sorry` (skeleton) |
+| Harmony per-feature independence | `LeanProofs/HarmonyPerFeature.lean` | `claims/harmony_per_feature.md` | proved |

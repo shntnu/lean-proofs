@@ -1,0 +1,13 @@
+{
+  "eval_id": 0,
+  "eval_name": "transpose-full-pipeline",
+  "variant": "without_skill",
+  "expectations": [
+    {"text": "claim_file_exists", "passed": true, "evidence": "claim.md exists in outputs/"},
+    {"text": "lean_file_exists", "passed": true, "evidence": "proof.lean exists in outputs/"},
+    {"text": "no_sorry_in_proof", "passed": true, "evidence": "grep -c sorry = 0"},
+    {"text": "builds_clean", "passed": true, "evidence": "Compiles clean after 3 rounds of fix-and-verify (181s total). Initial versions had syntax errors; agent self-corrected."},
+    {"text": "uses_mathlib_types", "passed": true, "evidence": "Uses Matrix type, Matrix.transpose_mul, CommSemiring (more general than with_skill's CommRing)"},
+    {"text": "proof_structure", "passed": true, "evidence": "Has TransposeProduct namespace, docstrings, section headings, import Mathlib"}
+  ]
+}

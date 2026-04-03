@@ -1,0 +1,6 @@
+{
+  "eval_id": 1,
+  "eval_name": "harmony-prove-sorry",
+  "prompt": "Prove the theorems in the provided Lean file. All three theorems have sorry placeholders that need to be replaced with valid proofs.",
+  "assertions": []
+}

@@ -1,0 +1,6 @@
+{
+  "eval_id": 2,
+  "eval_name": "rank-nullity-formalize",
+  "prompt": "I have a claim: For any linear map f between finite-dimensional vector spaces, the rank of f plus the nullity of f equals the dimension of the domain (rank-nullity theorem). Create the Lean skeleton for it.",
+  "assertions": []
+}

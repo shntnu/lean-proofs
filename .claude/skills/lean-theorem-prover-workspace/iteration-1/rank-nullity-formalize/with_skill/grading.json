@@ -1,0 +1,13 @@
+{
+  "eval_id": 2,
+  "eval_name": "rank-nullity-formalize",
+  "variant": "with_skill",
+  "expectations": [
+    {"text": "claim_file_exists", "passed": true, "evidence": "claim.md exists with structured sections (Objects, Properties, Proof sketch, Decomposition)"},
+    {"text": "skeleton_file_exists", "passed": true, "evidence": "skeleton.lean exists in outputs/"},
+    {"text": "has_sorry", "passed": true, "evidence": "4 sorry placeholders (appropriate for a skeleton)"},
+    {"text": "parses_clean", "passed": true, "evidence": "lake env lean shows only sorry warnings, zero errors"},
+    {"text": "uses_existing_mathlib", "passed": true, "evidence": "Uses Module.rank, Module.finrank, LinearMap.range, LinearMap.ker — all existing Mathlib types"},
+    {"text": "proper_type_classes", "passed": true, "evidence": "Uses [DivisionRing K], [AddCommGroup V], [Module K V], [FiniteDimensional K V] — correct constraints"}
+  ]
+}

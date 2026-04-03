@@ -1,0 +1,4 @@
+.claude/skills/lean-theorem-prover-workspace/iteration-1/rank-nullity-formalize/with_skill/outputs/skeleton.lean:42:8: warning: declaration uses `sorry`
+.claude/skills/lean-theorem-prover-workspace/iteration-1/rank-nullity-formalize/with_skill/outputs/skeleton.lean:53:8: warning: declaration uses `sorry`
+.claude/skills/lean-theorem-prover-workspace/iteration-1/rank-nullity-formalize/with_skill/outputs/skeleton.lean:63:8: warning: declaration uses `sorry`
+.claude/skills/lean-theorem-prover-workspace/iteration-1/rank-nullity-formalize/with_skill/outputs/skeleton.lean:70:8: warning: declaration uses `sorry`

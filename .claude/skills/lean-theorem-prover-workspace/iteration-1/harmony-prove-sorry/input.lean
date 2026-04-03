@@ -57,9 +57,7 @@ theorem mul_col_eq {m n p : Type*} [Fintype n] [DecidableEq n]
     (C : Matrix m n R) (Z₁ Z₂ : Matrix n p R) (j : p)
     (h : ∀ k, Z₁ k j = Z₂ k j) :
     colOf (C * Z₁) j = colOf (C * Z₂) j := by
-  ext i
-  simp only [colOf, Matrix.mul_apply]
-  exact Finset.sum_congr rfl fun k _ => by rw [h k]
+  sorry
 
 /-- The per-feature independence property stated directly:
 if two data matrices agree on feature j (column j of Zᵀ),
@@ -69,8 +67,7 @@ theorem harmony_per_feature_independence
     (C : Matrix B_plus_1 n R) (Z_T₁ Z_T₂ : Matrix n d R) (j : d)
     (h_same_feature : ∀ (cell : n), Z_T₁ cell j = Z_T₂ cell j) :
     ∀ (b : B_plus_1), (C * Z_T₁) b j = (C * Z_T₂) b j := by
-  intro b
-  exact congr_fun (mul_col_eq C Z_T₁ Z_T₂ j h_same_feature) b
+  sorry
 
 /-! ### Stronger formulation: full correction is per-feature -/
 
@@ -92,8 +89,6 @@ theorem harmony_correction_independent
     -- The corrections ∑_k R_k(cell) · W_k[batch, j] are equal
     (∑ k : K, R_k k cell * (C k * Z_T₁) batch j) =
     (∑ k : K, R_k k cell * (C k * Z_T₂) batch j) := by
-  apply Finset.sum_congr rfl
-  intro k _
-  rw [harmony_per_feature_independence (C k) Z_T₁ Z_T₂ j h_same batch]
+  sorry
 
 end HarmonyPerFeature
