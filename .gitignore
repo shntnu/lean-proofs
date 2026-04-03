@@ -1,0 +1,13 @@
+# Lake build artifacts
+.lake/
+lake-packages/
+build/
+
+# Nix
+result
+.direnv/
+
+# Editor
+*.olean
+*.ilean
+*.trace
