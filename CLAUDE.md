@@ -38,7 +38,4 @@ All interactive proof work is handled by the `lean-theorem-prover` skill (`.clau
 
 ## Claims
 
-| Claim | Lean file | Claim file | Status |
-|-------|-----------|------------|--------|
-| Harmony per-feature independence | `LeanProofs/HarmonyPerFeature.lean` | `claims/harmony_per_feature.md` | proved |
-| SVD–PCA equivalence | `LeanProofs/SvdPcaEquivalence.lean` | `claims/svd_pca_equivalence.md` | proved |
+See the claims table in [`README.md`](README.md#claims) — that is the single source of truth for claim status.
