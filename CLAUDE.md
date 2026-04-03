@@ -6,9 +6,6 @@
 lake build                          # Build and verify all proofs
 lake exe cache get                  # Fetch Mathlib prebuilt cache (first time only)
 nix develop                         # Enter dev shell — or just cd in with direnv
-./scripts/lean-diag.sh status       # Proof status overview (sorry count, errors)
-./scripts/lean-diag.sh goals FILE   # Show goal states at each sorry in FILE
-./scripts/lean-diag.sh check        # Pass/fail build check
 ```
 
 - Lean toolchain: `lean-toolchain` (v4.29.0)
@@ -21,7 +18,6 @@ nix develop                         # Enter dev shell — or just cd in with dir
 claims/                       # Mathematical claims as markdown
 LeanProofs/                   # One .lean file per claim
 LeanProofs.lean               # Root — imports all modules
-scripts/lean-diag.sh          # Proof diagnostics (goal states, status)
 .claude/.lsp.json             # Lean language server config for Claude Code
 ```
 
@@ -34,7 +30,7 @@ scripts/lean-diag.sh          # Proof diagnostics (goal states, status)
 
 ## Proving Theorems
 
-Use the `/lean4` skill suite for all proof work. The `scripts/lean-diag.sh goals` script provides repo-specific goal-state inspection as a complement to the `/lean4` LSP tools.
+Use the `/lean4` skill suite for all proof work.
 
 ## Claims
 

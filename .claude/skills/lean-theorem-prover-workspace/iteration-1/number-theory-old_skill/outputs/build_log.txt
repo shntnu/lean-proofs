@@ -1,7 +1,0 @@
-$ lake build Analysis.Section_4_4
-ℹ [3264/3264] Replayed Analysis.Section_4_4
-info: Analysis/Section_4_4.lean:70:0: even_iff_exists_two_mul.{u_2} {α : Type u_2} [Semiring α] {a : α} : Even a ↔ ∃ b, a = 2 * b
-info: Analysis/Section_4_4.lean:71:0: odd_iff_exists_bit1.{u_2} {α : Type u_2} [Semiring α] {a : α} : Odd a ↔ ∃ b, a = 2 * b + 1
-info: Analysis/Section_4_4.lean:85:0: Nat.rec.{u} {motive : ℕ → Sort u} (zero : motive Nat.zero) (succ : (n : ℕ) → motive n → motive n.succ) (t : ℕ) :
-  motive t
-Build completed successfully (3264 jobs).
