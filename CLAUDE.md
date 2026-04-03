@@ -28,28 +28,13 @@ scripts/lean-diag.sh          # Proof diagnostics (goal states, status)
 ## Adding a New Claim
 
 1. Write `claims/your_claim.md` — the mathematical statement in plain language
-2. `/lean4:draft` — generates `LeanProofs/YourClaim.lean` with theorem statements and `sorry` placeholders from the claim
+2. Use `/lean4:draft` to generate `LeanProofs/YourClaim.lean` (skeleton with `sorry`)
 3. Add `import LeanProofs.YourClaim` to `LeanProofs.lean`
-4. `/lean4:prove` — iteratively replace `sorry` with verified proofs
-
-Or combine steps 2–4: `/lean4:formalize` (interactive) or `/lean4:autoformalize --source=claims/your_claim.md` (autonomous).
+4. Use `/lean4:prove` or `/lean4:autoprove` to fill `sorry` placeholders
 
 ## Proving Theorems
 
-Use the `/lean4` skill suite for all proof work:
-
-| Command | When to use |
-|---------|-------------|
-| `/lean4:draft` | Generate Lean skeleton from an informal claim |
-| `/lean4:formalize` | Interactive: draft + guided proving in one session |
-| `/lean4:autoformalize --source=...` | Autonomous: claim file → skeleton → proof, hands-off |
-| `/lean4:prove` | Fill `sorry` placeholders interactively (cycle-by-cycle) |
-| `/lean4:autoprove` | Fill `sorry` placeholders autonomously (with hard stop rules) |
-| `/lean4:refactor` | Leverage mathlib, extract helpers, simplify strategies |
-| `/lean4:golf` | Shorten and clean up compiled proofs |
-| `/lean4:checkpoint` | Save progress (per-file build + commit) |
-
-The `scripts/lean-diag.sh goals` script provides goal-state inspection as a complement to the `/lean4` LSP tools.
+Use the `/lean4` skill suite for all proof work. The `scripts/lean-diag.sh goals` script provides repo-specific goal-state inspection as a complement to the `/lean4` LSP tools.
 
 ## Claims
 
