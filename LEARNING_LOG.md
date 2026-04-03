@@ -4,6 +4,28 @@ Tracks what we tried, what we learned, and what to do next — across sessions.
 
 ---
 
+## 2026-04-03: Formalize-claim skill experiment — built, eval'd, retired
+
+### What was done
+- Created a `formalize-claim` skill to handle the "left side" of the pipeline: reading informal claims and producing Lean skeletons (type selection, decomposition, Mathlib structure choices).
+- Ran 10 parallel subagent evals (5 with-skill, 5 baseline) across diverse domains: matrix algebra (Harmony, SVD-PCA), number theory (even/odd), real analysis (Cauchy convergence), topology (continuity).
+- Graded on 8 assertions (import, namespace, sorry, doc comments, declaration count, type appropriateness, section markers, no tactic leakage).
+- Result: with-skill scored 39/40, baseline 38/40. The only discriminating signal was decomposition discipline on SVD-PCA (baseline invented 5 declarations vs. claim's 2).
+- Retired the skill and folded the useful domain patterns (type mappings, decomposition rule) into CLAUDE.md instead.
+
+### Key findings
+- **Skills that codify what the model already knows are overhead, not leverage.** The model already produces correct `import Mathlib`, namespaces, sorry placeholders, doc comments, and appropriate types without being told. A skill repeating these instructions costs ~20% more tokens for negligible quality gain.
+- **Domain patterns belong in CLAUDE.md, not a separate skill.** CLAUDE.md is already read by every session and by `/lean4:draft`. Adding a skill layer just duplicates the delivery mechanism.
+- **The right threshold for a custom skill: does it do something the model + lean4-skills + CLAUDE.md can't?** Formalizability triage, Mathlib gap detection, or claim quality review would clear this bar. A style guide doesn't.
+- **Decomposition discipline was the one real signal.** The baseline over-decomposed on SVD-PCA (added `orthogonal_cancel`, `svd_pca_similarity` beyond the claim). A single line in CLAUDE.md ("Follow the claim's decomposition") captures this more cheaply than a full skill.
+
+### What to do next
+- Try `/lean4:formalize` or `/lean4:autoformalize` on a new claim to test the full pipeline end-to-end.
+- Consider a claim from the morphological profiling domain (e.g., sphering/whitening properties, batch effect correction bounds).
+- If a skill idea emerges that does something the model can't do alone (e.g., pre-checking Mathlib for required lemmas before drafting), revisit skill-creator then.
+
+---
+
 ## 2026-04-03: Complementarity audit and cleanup
 
 ### What was done

@@ -32,6 +32,18 @@ LeanProofs.lean               # Root — imports all modules
 
 Use the `/lean4` skill suite for all proof work.
 
+## Domain Patterns
+
+Claims in this repo come from morphological profiling and single-cell genomics. Common Lean type mappings:
+
+- Matrices: `Matrix m n R` with `m n : Type*` (not `Fin n` or `ℕ`) and `[Fintype]` / `[DecidableEq]`
+- Scalar field: `[CommRing R]` by default; `[Field R]` only when division appears
+- Batch/cluster indices: named `Type*` with `[Fintype K]` (e.g., `B_plus_1`, `K`)
+- Summations: `Finset.sum` with `Finset.sum_congr` for per-element rewriting
+- Transpose/identity: `Aᵀ` and `1` via `open Matrix`
+
+Follow the claim's decomposition — don't invent auxiliary lemmas beyond what the claim suggests.
+
 ## Claims
 
 See the claims table in [`README.md`](README.md#claims) — that is the single source of truth for claim status.
