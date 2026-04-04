@@ -8,19 +8,13 @@ the total variance — measured as ∑ᵢⱼ M(i,j)² — is unchanged.
 
 This is the algebraic foundation for parallel analysis: the permutation null
 distribution has the same total variance budget as the original data, just
-spread differently across singular values. The test has power because real
-signal concentrates variance in the top PCs beyond what's achievable under
-the null.
+spread differently across singular values.
 
 ## Objects
 
 - M ∈ R^{m×n} — data matrix
 - σ : n → Perm(m) — a family of permutations, one per column
 - M' defined by M'(i,j) = M(σⱼ(i), j) — the column-wise permuted matrix
-
-## Core algebraic fact
-
-  ∑ᵢ ∑ⱼ M'(i,j)² = ∑ᵢ ∑ⱼ M(i,j)²
 
 ## Proof sketch
 
@@ -30,8 +24,8 @@ the null.
 
 ## Decomposition
 
-- **Column lemma**: for a single column, permutation preserves the sum of squares
-- **Main theorem**: column-wise permutation preserves the Frobenius norm squared
+- **Column lemma** (`sum_sq_perm_eq`): for a single column, permutation preserves the sum of squares
+- **Main theorem** (`frobenius_sq_perm_invariant`): column-wise permutation preserves the Frobenius norm squared
 
 ## Source
 
