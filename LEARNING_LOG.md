@@ -27,6 +27,11 @@ Tracks what we tried, what we learned, and what to do next — across sessions.
 - Trace identity (total variance = d)
 - Rescaling preserves variance budget
 
+### Also done this session
+- Standardized claim file structure: `Claim / Objects / Proof sketch / Decomposition / Source` — added to CLAUDE.md, retrofitted all three existing claims.
+- Trimmed README (dropped tutorial tone, repo structure section, claims table).
+- Evaluated whether a custom skill or lean4-skills fork would help. Conclusion: CLAUDE.md + memory is the right layer for project-specific conventions; a skill only earns its keep when there's a repetitive *workflow*, not just conventions.
+
 ### What to do next
 - Formalize the whitening identity (builds on existing SVD-PCA equivalence).
 - Try the variance partition claim (Pythagorean theorem for Frobenius norm) — bridges algebra and the probabilistic layer.
