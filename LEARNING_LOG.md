@@ -4,6 +4,36 @@ Tracks what we tried, what we learned, and what to do next — across sessions.
 
 ---
 
+## 2026-04-03: Notebook-to-proof — permutation preserves variance
+
+### What was done
+- Downloaded a Colab notebook ("Deconstruct sphering") and extracted 9 formalizable claims — 5 pure linear algebra, 4 PAC/probabilistic.
+- Formalized and proved **permutation preserves variance**: column-wise permutation of a matrix preserves ∑ᵢⱼ M(i,j)² (Frobenius norm squared). Two theorems, zero sorries.
+- Dropped the manually maintained claims table from README.md — the `claims/` and `LeanProofs/` directories are the source of truth.
+- Updated CLAUDE.md with notebook workflow and tactic gotchas.
+
+### Key findings
+- **Notebooks are rich claim sources.** The sphering notebook yielded 9 distinct claims spanning pure algebra (whitening identity, null-space projection) to PAC-flavored statements (Marchenko-Pastur, variance partition, permutation test correctness).
+- **`Equiv.sum_comp` is the key mathlib lemma** for permutation-invariance proofs. Pattern: `Equiv.sum_comp σ (f · ^ 2)` — found by grepping mathlib's `SumFourSquares.lean`.
+- **`simp_rw [Finset.sum_comm]` loops** because `sum_comm` is its own inverse. Use `calc` blocks with explicit directional steps instead.
+- **Lean LSP MCP tools were unavailable** in this session (not registered as deferred tools). Operated in `scripts_only` mode: `lake env lean` for validation, `$LEAN4_SCRIPTS` for sorry/axiom analysis. Proofs succeeded without live goal inspection.
+
+### Remaining claims from the notebook
+- Sphering produces identity covariance (whitening identity): `Wᵀ XᵀX W = I`
+- Rank of mean-centered matrix ≤ n−1
+- Variance partition under orthogonal projection (Pythagorean/Frobenius)
+- Pseudoinverse via SVD / hat matrix equivalence
+- Null-space projection equivalence (ε → 0 limit)
+- Trace identity (total variance = d)
+- Rescaling preserves variance budget
+
+### What to do next
+- Formalize the whitening identity (builds on existing SVD-PCA equivalence).
+- Try the variance partition claim (Pythagorean theorem for Frobenius norm) — bridges algebra and the probabilistic layer.
+- Investigate Lean LSP MCP availability for future sessions.
+
+---
+
 ## 2026-04-03: Formalize-claim skill experiment — built, eval'd, retired
 
 ### What was done
