@@ -27,7 +27,13 @@ Claims can originate from notebooks, papers, or informal notes. For notebooks:
 download the `.ipynb`, read markdown/code cells to extract mathematical claims,
 then follow the steps below.
 
-1. Write `claims/your_claim.md` — the mathematical statement in plain language
+1. Write `claims/your_claim.md` with these sections:
+   - `# Title`
+   - `## Claim` — what to prove (prose + math notation)
+   - `## Objects` — types, dimensions, constraints
+   - `## Proof sketch` — numbered steps
+   - `## Decomposition` — lemma/theorem split
+   - `## Source` — (optional) notebook, paper, gist
 2. Use `/lean4:draft` to generate `LeanProofs/YourClaim.lean` (skeleton with `sorry`)
 3. Add `import LeanProofs.YourClaim` to `LeanProofs.lean`
 4. Use `/lean4:prove` or `/lean4:autoprove` to fill `sorry` placeholders
