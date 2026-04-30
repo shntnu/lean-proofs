@@ -1,14 +1,19 @@
 /-
-# Harmony Per-Feature Correction: Formal Proof
+# Harmony Correction Step: Conditional Per-Feature Separability
 
-Formal verification that Harmony's batch correction algorithm
-(Korsunsky et al., Nature Methods 2019) applies independent
-per-feature corrections — i.e., the corrected value of feature j
-depends only on the original values of feature j, not on other features.
+Formal verification that Harmony's mixture-of-experts ridge correction
+step is column-separable once the correction operators and soft cluster
+assignments are fixed. In that fixed update, the correction applied to
+feature j depends only on the original values of feature j, not on other
+features.
+
+This does not formalize the full iterative Harmony algorithm. In the full
+algorithm, clustering and normalization use all coordinates and can create
+indirect cross-feature dependence across iterations.
 
 ## Mathematical Setup
 
-Given:
+Given fixed:
 - Φ : (B+1) × n  design matrix (batch indicators + intercept)
 - R_k : n-vector   soft cluster assignments for cluster k
 - Z : d × n        data matrix (features × cells)
@@ -20,16 +25,17 @@ Harmony computes correction coefficients:
 Key decomposition:
   W_k = C_k · Zᵀ   where C_k = (Φ · diag(R_k) · Φᵀ + λI)⁻¹ · Φ · diag(R_k)
 
-Since C_k does not depend on Z, and matrix multiplication is
-column-separable — (C · Zᵀ)[:,j] = C · Zᵀ[:,j] — column j of W_k
-depends only on feature j.
+For fixed Φ, R_k, and λ, C_k is fixed with respect to Z in this update.
+Since matrix multiplication is column-separable — (C · Zᵀ)[:,j] =
+C · Zᵀ[:,j] — column j of W_k depends only on feature j.
 
 ## Core Theorem
 
 If Zᵀ₁ and Zᵀ₂ agree on column j, then (C · Zᵀ₁)[:,j] = (C · Zᵀ₂)[:,j].
 
-Equivalently: modifying feature j' ≠ j in Z cannot change the
-correction applied to feature j.
+Equivalently: with the correction operators and soft assignments held
+fixed, modifying feature j' ≠ j in Z cannot change the correction applied
+to feature j.
 
 ## Reference
 
@@ -51,8 +57,8 @@ def colOf {m n : Type*} (A : Matrix m n R) (j : n) : m → R :=
   fun i => A i j
 
 /-- Core lemma: column j of a matrix product depends only on column j
-of the right factor. This is the mathematical heart of Harmony's
-per-feature independence. -/
+of the right factor. This is the mathematical heart of the fixed-update
+separability claim. -/
 theorem mul_col_eq {m n p : Type*} [Fintype n] [DecidableEq n]
     (C : Matrix m n R) (Z₁ Z₂ : Matrix n p R) (j : p)
     (h : ∀ k, Z₁ k j = Z₂ k j) :
@@ -72,14 +78,15 @@ theorem harmony_per_feature_independence
   intro b
   exact congr_fun (mul_col_eq C Z_T₁ Z_T₂ j h_same_feature) b
 
-/-! ### Stronger formulation: full correction is per-feature -/
+/-! ### Fixed-assignment correction term -/
 
-/-- The full Harmony correction for a single cell:
+/-- The Harmony correction term for a single cell, with fixed assignments:
   Z_corr[j,i] = Z[j,i] - ∑_k R_k(i) · W_k[b(i), j]
 where W_k = C_k · Zᵀ.
 
 This theorem states that if we replace Z with Z' that differs only
-on feature j' ≠ j, the corrected value of feature j is unchanged. -/
+on feature j' ≠ j while keeping C_k and R_k fixed, the correction term
+for feature j is unchanged. -/
 theorem harmony_correction_independent
     {B_plus_1 n d K : Type*}
     [Fintype n] [DecidableEq n] [Fintype K]

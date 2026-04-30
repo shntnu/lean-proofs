@@ -1,8 +1,10 @@
-# Harmony Per-Feature Correction
+# Harmony Correction Step: Conditional Per-Feature Separability
 
 ## Claim
 
-Harmony's batch correction applies independent per-feature corrections. The corrected value of feature $j$ depends only on the original values of feature $j$, not on other features. Cluster assignment uses all features (indirect cross-feature influence), but the correction itself is strictly per-feature.
+Conditional on fixed soft cluster memberships $R_k$, batch design $\Phi$, and ridge penalty $\lambda$, Harmony's mixture-of-experts ridge correction step is separable by feature: the correction applied to feature $j$ depends only on the original values of feature $j$, not on other features.
+
+This is a statement about the algebraic correction update with assignments held fixed. It is **not** a claim that the full iterative Harmony algorithm is globally per-feature independent: cluster assignment uses all coordinates, and later normalization/clustering steps can introduce indirect cross-feature dependence.
 
 Concretely: if $W_k = C_k \cdot Z^T$ where $C_k$ does not depend on $Z$, then column $j$ of $W_k$ depends only on feature $j$ of $Z$. The full correction $Z_{\text{corr}}[j,i] = Z[j,i] - \sum_k R_k(i) \cdot W_k[b(i), j]$ inherits this independence.
 
@@ -11,8 +13,8 @@ Concretely: if $W_k = C_k \cdot Z^T$ where $C_k$ does not depend on $Z$, then co
 | Symbol | Dimensions | Description |
 |--------|------------|-------------|
 | $\Phi$ | $(B+1) \times n$ | Batch indicator design matrix (+ intercept) |
-| $R_k$ | $n \times 1$ | Soft cluster membership for cluster $k$ |
-| $Z$ | $d \times n$ | Data matrix (features $\times$ cells) |
+| $R_k$ | $n \times 1$ | Fixed soft cluster membership for cluster $k$ |
+| $Z$ | $d \times n$ | Original data matrix for this correction step (features $\times$ cells) |
 | $\lambda$ | scalar $> 0$ | Ridge penalty |
 | $C_k$ | $(B+1) \times n$ | $(\Phi \cdot \text{diag}(R_k) \cdot \Phi^T + \lambda I)^{-1} \cdot \Phi \cdot \text{diag}(R_k)$ — does not depend on $Z$ |
 
